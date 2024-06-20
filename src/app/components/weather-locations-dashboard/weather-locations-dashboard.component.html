@@ -1,0 +1,29 @@
+<app-panel appMinLocationDimensions *ngFor="let location of locations; let i = index" [title]="location.name" [icon]="getLocationIcon(location)"
+    [routerLink]="getRouterLink(location)" matRipple>
+    <!-- <app-weather-thumb  [location]="location" [weather]="weathers[i]"></app-weather-thumb> -->
+
+    <img class="weather-icon" [src]="getIconUrl(i)">
+
+    <table>
+        <tr>
+            <td>Temperatur:</td>
+            <td>{{getTemperature(i)}} °C</td>
+        </tr>
+        <tr>
+            <td>Feuchtigkeit:</td>
+            <td>{{getHumidity(0)}} %</td>
+        </tr>
+        <tr>
+            <td>Luft-Druck:</td>
+            <td>{{getPressure(i)}} hPa</td>
+        </tr>
+        <tr>
+            <td>Wind:</td>
+            <td>{{getWindSpeed(i)}} kmh</td>
+        </tr>
+        <tr>
+            <td>Niederschlag:</td>
+            <td>{{getPrecitipation(i)}} mm</td>
+        </tr>
+    </table>
+</app-panel>

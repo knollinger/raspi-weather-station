@@ -1,0 +1,28 @@
+:host {
+    display: block;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    color: white;
+}
+
+.panel-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.title-text {
+    flex: 1 0 auto;
+    font-size: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.title-icon {
+    flex: 0 0 auto;
+    margin-right: 8px;
+}

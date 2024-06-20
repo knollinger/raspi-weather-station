@@ -1,0 +1,27 @@
+<app-panel *ngFor="let weather of weathers; let i = index" [title]="getDate(i)">
+
+    <img class="weather-icon" [src]="getIconUrl(i)">
+
+    <table>
+        <tr>
+            <td>Temp. T/N:</td>
+            <td>{{getDayTemp(i)}}°/{{getNightTemp(i)}}°</td>
+        </tr>
+        <tr>
+            <td>Feuchtigkeit:</td>
+            <td>{{getHumidity(i)}}%</td>
+        </tr>
+        <tr>
+            <td>Luft-Druck:</td>
+            <td>{{getPressure(i)}} hPa</td>
+        </tr>
+        <tr>
+            <td>Wind:</td>
+            <td>{{getWindSpeed(i)}} kmh</td>
+        </tr>
+        <tr>
+            <td>Niederschlag:</td>
+            <td>{{getPop(i)}}% / {{getPrecitipation(i)}}mm</td>
+        </tr>
+    </table>
+</app-panel>
