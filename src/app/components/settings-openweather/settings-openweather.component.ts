@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { TitlebarService } from '../../services/titlebar.service';
+
+
 
 @Component({
   selector: 'app-settings-openweather',
@@ -8,12 +13,22 @@ import { TitlebarService } from '../../services/titlebar.service';
 })
 export class SettingsOpenweatherComponent implements OnInit {
 
-  constructor(
-    private titleSvc: TitlebarService) {
+  formGroup: FormGroup;
 
+  constructor(
+    private titleSvc: TitlebarService,
+    private formBuilder: FormBuilder) {
+
+    this.formGroup = this.formBuilder.group({
+      apiKey:  new FormControl('', [Validators.required])
+    });
   }
 
   ngOnInit(): void {
     this.titleSvc.title = 'Einstellungen - Openweather';
+  }
+
+  onSubmit() {
+    
   }
 }

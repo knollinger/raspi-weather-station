@@ -1,1 +1,18 @@
-<p>settings-openweather works!</p>
+<form [formGroup]="formGroup" class="form" (ngSubmit)="onSubmit()">
+
+    <div class="content">
+        <mat-form-field class="row">
+            <mat-label>API-Key</mat-label>
+            <input type="text" matInput formControlName="apiKey">
+            <!-- <mat-icon matSuffix mat-icon-button (click)="togglePasswordVisibility()">
+            {{passwordIconName}}
+        </mat-icon> -->
+            <mat-error *ngIf="formGroup.get('apiKey')!.hasError('required')">Bitte ausfüllen</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div class="button-bar">
+        <button mat-flat-button color="primary">Speichern</button>
+    </div>
+
+</form>

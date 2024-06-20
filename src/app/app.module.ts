@@ -10,6 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -49,6 +54,11 @@ import { MinLocationDimensionsDirective } from './directives/min-location-dimens
     MatDividerModule,
     MatRippleModule,
     MatListModule,
+    MatInputModule,
+    MatFormFieldModule,
+
+    FormsModule,
+    ReactiveFormsModule,
 
     AppRoutingModule,
   ],
