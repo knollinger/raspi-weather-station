@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
@@ -54,6 +55,7 @@ import { MinLocationDimensionsDirective } from './directives/min-location-dimens
     MatDividerModule,
     MatRippleModule,
     MatListModule,
+    MatSliderModule,
     MatInputModule,
     MatFormFieldModule,
 

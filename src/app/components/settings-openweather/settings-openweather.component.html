@@ -1,18 +1,24 @@
 <form [formGroup]="formGroup" class="form" (ngSubmit)="onSubmit()">
 
     <div class="content">
+
         <mat-form-field class="row">
             <mat-label>API-Key</mat-label>
-            <input type="text" matInput formControlName="apiKey">
-            <!-- <mat-icon matSuffix mat-icon-button (click)="togglePasswordVisibility()">
-            {{passwordIconName}}
-        </mat-icon> -->
+            <input [type]="passwordType" matInput formControlName="apiKey">
+            <mat-icon matSuffix mat-icon-button (click)="togglePasswordVisibility()">
+                {{passwordIconName}}
+            </mat-icon>
             <mat-error *ngIf="formGroup.get('apiKey')!.hasError('required')">Bitte ausfüllen</mat-error>
         </mat-form-field>
+
+        <mat-label>API-Key</mat-label>
+        <mat-slider min="15" max="60" step="15" thumbLabel color="primary" class="row" >
+            <input matSliderThumb value="1.5">
+        </mat-slider>
     </div>
 
     <div class="button-bar">
-        <button mat-flat-button color="primary">Speichern</button>
+        <button mat-flat-button color="primary" class="button">Speichern</button>
     </div>
 
 </form>

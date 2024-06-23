@@ -13,6 +13,9 @@ import { TitlebarService } from '../../services/titlebar.service';
 })
 export class SettingsOpenweatherComponent implements OnInit {
 
+  passwordIconName: string = 'visibility';
+  passwordType:     string = 'password';
+
   formGroup: FormGroup;
 
   constructor(
@@ -20,7 +23,7 @@ export class SettingsOpenweatherComponent implements OnInit {
     private formBuilder: FormBuilder) {
 
     this.formGroup = this.formBuilder.group({
-      apiKey:  new FormControl('', [Validators.required])
+      apiKey:  new FormControl('', [Validators.required]),
     });
   }
 
@@ -30,5 +33,17 @@ export class SettingsOpenweatherComponent implements OnInit {
 
   onSubmit() {
     
+  }
+
+  togglePasswordVisibility() {
+
+    if (this.passwordIconName === 'visibility') {
+      this.passwordIconName = 'visibility_off';
+      this.passwordType = 'text';
+    }
+    else {
+      this.passwordIconName = 'visibility'
+      this.passwordType = 'password';
+    }
   }
 }
