@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 import { TitlebarService } from '../../services/titlebar.service';
+import { SettingsService } from '../../services/settings.service';
+import { OpenWeatherSettings } from '../../models/settings';
 
-
-
+/**
+ * 
+ */
 @Component({
   selector: 'app-settings-openweather',
   templateUrl: './settings-openweather.component.html',
@@ -14,27 +17,45 @@ import { TitlebarService } from '../../services/titlebar.service';
 export class SettingsOpenweatherComponent implements OnInit {
 
   passwordIconName: string = 'visibility';
-  passwordType:     string = 'password';
+  passwordType: string = 'password';
 
-  formGroup: FormGroup;
+  apiKey = new FormControl('', [Validators.required]);
+  refreshInt = new FormControl('', [Validators.required]);
+  model: OpenWeatherSettings = OpenWeatherSettings.empty();
 
+  /**
+   * 
+   * @param titleSvc 
+   */
   constructor(
     private titleSvc: TitlebarService,
-    private formBuilder: FormBuilder) {
+    private settingsSvc: SettingsService) {
 
-    this.formGroup = this.formBuilder.group({
-      apiKey:  new FormControl('', [Validators.required]),
-    });
+      // 42de26dcb9074467d041e2d48aa12811
+
   }
 
+  /**
+   * 
+   */
   ngOnInit(): void {
     this.titleSvc.title = 'Einstellungen - Openweather';
+    this.model = this.settingsSvc.getOpenWeatherSettings();
+    this.apiKey.setValue(this.model.apiKey);
   }
 
+  /**
+   * 
+   */
   onSubmit() {
-    
+    this.model.apiKey = this.apiKey.value;
+    // this.model.refreshInt = this.refreshInt.value;
+    this.settingsSvc.saveOpenWeatherSettings(this.model);
   }
 
+  /**
+   * 
+   */
   togglePasswordVisibility() {
 
     if (this.passwordIconName === 'visibility') {

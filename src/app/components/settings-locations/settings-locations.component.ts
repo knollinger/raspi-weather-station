@@ -51,11 +51,12 @@ export class SettingsLocationsComponent implements OnInit, AfterViewInit {
 
     this.titleSvc.title = 'Einstellungen - Orte';
 
-    this.locationSvc.getAllLocations().subscribe(locations => {
-      this.locations = locations;
-    })
+    this.locations = this.locationSvc.getAllLocations();
   }
 
+  /**
+   * 
+   */
   ngAfterViewInit(): void {
     this.initMap();
   }
@@ -130,5 +131,12 @@ export class SettingsLocationsComponent implements OnInit, AfterViewInit {
       this.map.removeLayer(this.currMarker);
       this.currMarker = null;
     }
+  }
+
+  /**
+   * 
+   */
+  saveLocations() {
+    this.locationSvc.saveAllLocations(this.locations);
   }
 }

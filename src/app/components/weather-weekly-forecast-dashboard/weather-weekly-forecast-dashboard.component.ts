@@ -65,15 +65,13 @@ export class WeatherWeeklyForecastDashboardComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const uuid = params.get('uuid');
       if (uuid) {
-        this.locationSvc.getLocation(uuid).subscribe(location => {
-          this.location = location;
-          this.titlebarSvc.title = `Wochen-Vorschau für ${location.name}`;
+        this.location = this.locationSvc.getLocation(uuid) || Location.empty();
+        this.titlebarSvc.title = `Wochen-Vorschau für ${this.location.name}`;
 
-          this.weatherSvc.getWeatherFor(location).subscribe(weather => {
-            this.weathers = weather.daily;
-            console.log(this.weathers.length);
-          });
-        })
+        this.weatherSvc.getWeatherFor(this.location).subscribe(weather => {
+          this.weathers = weather.daily;
+          console.log(this.weathers.length);
+        });
       }
     })
   }

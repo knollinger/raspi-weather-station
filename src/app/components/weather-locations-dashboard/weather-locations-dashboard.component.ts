@@ -59,14 +59,12 @@ export class WeatherLocationsDashboardComponent implements OnInit {
    */
   private loadLocations() {
 
-    this.locationSvc.getAllLocations().subscribe(locations => {
-      this.locations = locations;
-      this.locations.forEach(location => {
-        this.weatherSvc.getWeatherFor(location).subscribe(weather => {
-          this.weathers.push(weather.current);
-        })
+    this.locations = this.locationSvc.getAllLocations();
+    this.locations.forEach(location => {
+      this.weatherSvc.getWeatherFor(location).subscribe(weather => {
+        this.weathers.push(weather.current);
       })
-    });
+    })
   }
 
   /**
@@ -163,7 +161,7 @@ export class WeatherLocationsDashboardComponent implements OnInit {
    * @returns 
    */
   getPrecitipation(index: number): string {
-    
+
     let result = '';
 
     if (this.weathers[index]) {

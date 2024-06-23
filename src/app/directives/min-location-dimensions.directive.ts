@@ -7,10 +7,10 @@ import { LocationService } from '../services/location.service';
 })
 export class MinLocationDimensionsDirective implements OnInit {
 
-  @HostBinding('style.minWidth') 
+  @HostBinding('style.minWidth')
   minWidth = 'unset';
 
-  @HostBinding('style.minHeight') 
+  @HostBinding('style.minHeight')
   minHeight = 'unset';
 
   /**
@@ -23,20 +23,18 @@ export class MinLocationDimensionsDirective implements OnInit {
 
   ngOnInit(): void {
 
-    this.locationSvc.getAllLocations().subscribe(locs => {
+    const locations = this.locationSvc.getAllLocations();
+    const nrOfLocs = locations.length;
 
-      const nrOfLocs = locs.length;
-      
 
-      if (nrOfLocs > 4) {
-        this.minWidth = `21%`
-        this.minHeight = '40%';
-      }
-      else {
-        this.minWidth = `${Math.floor(85 / nrOfLocs)}%`        
-        this.minHeight = '85%';
+    if (nrOfLocs > 4) {
+      this.minWidth = `21%`
+      this.minHeight = '40%';
+    }
+    else {
+      this.minWidth = `${Math.floor(85 / nrOfLocs)}%`
+      this.minHeight = '85%';
 
-      }
-    })
+    }
   }
 }

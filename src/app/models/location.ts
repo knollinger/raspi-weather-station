@@ -1,3 +1,11 @@
+export interface ILocation {
+    uuid: string,
+    name: string,
+    longitude: number,
+    latitude: number,
+    isHome: boolean
+}
+
 /**
  * 
  */
@@ -33,6 +41,31 @@ export class Location {
      */
     public isEmpty(): boolean {
         return !this._uuid;
+    }
+
+    /**
+     * 
+     * @param json 
+     * @returns 
+     */
+    public static fromJson(json: ILocation): Location {
+        return new Location(json.uuid, json.name, json.longitude, json.latitude, json.isHome);
+    }
+
+    /**
+     * 
+     * @param json 
+     * @returns 
+     */
+    public toJson(): ILocation {
+        return {
+
+            uuid: this._uuid,
+            name: this._name,
+            longitude: this._longitude,
+            latitude: this._latitude,
+            isHome: this._isHome
+        }
     }
 
     /**

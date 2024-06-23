@@ -25,10 +25,8 @@ export class WeatherForecastChooserComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const uuid = params.get('uuid');
       if (uuid) {
-        this.locationSvc.getLocation(uuid).subscribe(location => {
-          this.location = location;
-          this.titlebarSvc.title = `Vorschau-Auswahl für ${location.name}`;
-        });
+        this.location = this.locationSvc.getLocation(uuid) || Location.empty();
+        this.titlebarSvc.title = `Vorschau-Auswahl für ${this.location.name}`;
       }
     });
   }

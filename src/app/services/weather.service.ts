@@ -3,13 +3,10 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable, map, of } from 'rxjs'
 
+import { SettingsService } from './settings.service';
+
 import { Location } from '../models/location';
 import { IShortWeatherDesc, IWeatherModel } from '../models/weather-model';
-
-interface ICacheEntry {
-  created: number,
-  model: IWeatherModel
-}
 
 /**
  * 
@@ -24,17 +21,6 @@ class CacheEntry {
   constructor(
     private _created: number,
     private _model: IWeatherModel) {
-  }
-
-  public static fromJSON(json: ICacheEntry) {
-    return new CacheEntry(json.created, json.model);
-  }
-
-  public toJson(): ICacheEntry {
-    return {
-      created: this._created,
-      model: this._model
-    }
   }
 
   /**
@@ -92,7 +78,9 @@ export class WeatherService {
   );
 
   private openweatherUrl = 'https://api.openweathermap.org/data/3.0/onecall?lat=<lat>&lon=<lon>&exclude=minutely,alerts&units=metric&appid=<apiKey>&lang=de';
-  private openweatherApiKey = '42de26dcb9074467d041e2d48aa12811';
+  private openweatherApiKey: string = '';
+  // private openweatherApiKey = '42de26dcb9074467d041e2d48aa12811';
+  private chache: Map<string, CacheEntry> = new Map<string, CacheEntry>();
 
   /**
    * 
@@ -100,8 +88,10 @@ export class WeatherService {
    * @param backendRoutesSvc 
    */
   constructor(
+    private settingsSvc: SettingsService,
     private httpClient: HttpClient) {
 
+      this.openweatherApiKey = settingsSvc.getOpenWeatherSettings().apiKey;
   }
 
   /**
@@ -128,14 +118,8 @@ export class WeatherService {
 
     let result: IWeatherModel | null = null;
     const key = this.createStorageKey(location);
-    const val = window.localStorage.getItem(key);
-    if (val) {
-      const entry = CacheEntry.fromJSON(JSON.parse(val));
-      if (entry.isValid()) {
-        result = entry.model;
-      }
-    }
-    return result;
+    const val = this.chache.get(key);
+    return (val && val.isValid()) ? val.model : null;
   }
 
   /**
@@ -168,7 +152,7 @@ export class WeatherService {
 
     const key = this.createStorageKey(location);
     const entry = new CacheEntry(new Date().getTime(), weather);
-    window.localStorage.setItem(key, JSON.stringify(entry.toJson()));
+    this.chache.set(key, entry);
   }
 
   /**
@@ -176,7 +160,7 @@ export class WeatherService {
    */
   private createStorageKey(location: Location): string {
     
-    return `weathermodel-${location.latitude}-${location.longitude}`;
+    return `${location.latitude}-${location.longitude}`;
   }
 
 
