@@ -1,0 +1,18 @@
+.outer {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+}
+
+input {
+    flex: 1 0 auto;
+    border: none;
+    height: 2rem;
+    outline: none;
+}
+
+mat-icon {
+    flex: 0 0 auto;
+    color: gray
+}

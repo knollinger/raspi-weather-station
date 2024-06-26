@@ -13,6 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +31,7 @@ import { WeatherDailyForecastComponent } from './components/weather-daily-foreca
 import { SettingsLocationsComponent } from './components/settings-locations/settings-locations.component';
 import { SettingsOpenweatherComponent } from './components/settings-openweather/settings-openweather.component';
 import { MinLocationDimensionsDirective } from './directives/min-location-dimensions.directive';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { MinLocationDimensionsDirective } from './directives/min-location-dimens
     SettingsLocationsComponent,
     SettingsOpenweatherComponent,
     MinLocationDimensionsDirective,
+    SearchBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { MinLocationDimensionsDirective } from './directives/min-location-dimens
     MatSliderModule,
     MatInputModule,
     MatFormFieldModule,
+    MatAutocompleteModule,
 
     FormsModule,
     ReactiveFormsModule,

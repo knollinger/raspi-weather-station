@@ -1,0 +1,11 @@
+<div class="outer">
+    <input [matAutocomplete]="auto" (input)="onInput($event)" #search>
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+        <mat-option *ngFor="let loc of locations" [value]="loc">
+          {{loc.displayName}}
+        </mat-option>
+
+      </mat-autocomplete>
+    <mat-icon (click)="search.value=''">clear</mat-icon>
+</div>

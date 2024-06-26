@@ -1,9 +1,23 @@
+/**
+ * 
+ */
 export interface ILocation {
     uuid: string,
     name: string,
     longitude: number,
     latitude: number,
     isHome: boolean
+}
+
+/**
+ * 
+ */
+export interface IOSMLocation {
+    osm_id: number,
+    name: string,
+    display_name: string,
+    lat: number,
+    lon: number
 }
 
 /**
@@ -24,7 +38,8 @@ export class Location {
         private _name: string,
         private _longitude: number,
         private _latitude: number,
-        private _isHome: boolean) {
+        private _isHome: boolean,
+        private _displayName?: string) {
     }
 
     /**
@@ -50,6 +65,15 @@ export class Location {
      */
     public static fromJson(json: ILocation): Location {
         return new Location(json.uuid, json.name, json.longitude, json.latitude, json.isHome);
+    }
+
+    /**
+     * 
+     * @param json 
+     * @returns 
+     */
+    public static fromOSMJson(json: IOSMLocation): Location {
+        return new Location('' + json.osm_id, json.name, json.lon, json.lat, false, json.display_name);
     }
 
     /**
@@ -102,4 +126,20 @@ export class Location {
     public get isHome(): boolean {
         return this._isHome;
     }
+
+    /**
+     * 
+     */
+    public get displayName(): string | undefined {
+        return this._displayName;
+    }
+
+    /**
+     * 
+     * @returns 
+     */
+    public toString(): string {
+        return this.displayName || this.name;
+    }
 }
+

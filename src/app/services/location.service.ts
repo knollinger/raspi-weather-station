@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable, map } from 'rxjs';
 
-import { ILocation, Location } from '../models/location';
+import { ILocation, IOSMLocation, Location } from '../models/location';
 
 /**
  * 
@@ -20,7 +21,7 @@ export class LocationService {
    * 
    * @param backendRoutesSvc 
    */
-  constructor() {
+  constructor(private http: HttpClient) {
 
     const locs = JSON.parse(window.localStorage.getItem('settings.locations') || '[]') as ILocation[]
     this.locations = locs.map(loc => {
@@ -85,5 +86,24 @@ export class LocationService {
       }
     }
     return null;
+  }
+
+  /**
+   * 
+   */
+  public searchOSM(query: string): Observable<Location[]> {
+
+            // "searchUrl": "https://nominatim.openstreetmap.org/search?q={query}&format=jsonv2",
+        // "reverseUrl": "https://nominatim.openstreetmap.org/reverse.php?lat={lat}&lon={lon}&zoom=10&format=jsonv2"
+
+    const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=jsonv2`;
+    return this.http.get<IOSMLocation[]>(url).pipe(
+      map(locs => {
+
+        return locs.map(loc => {
+          return Location.fromOSMJson(loc);
+        })
+      })
+    );
   }
 }

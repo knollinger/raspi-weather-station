@@ -29,11 +29,11 @@ class CacheEntry {
    *  
    * @returns 
    */
-  public isValid(): boolean {
+  public isValid(timeout: number): boolean {
 
     const now = new Date();
     const diff = now.getTime() - this._created;
-    return diff < (15 * 60 * 1000);
+    return diff < timeout;
   }
 
   /**
@@ -79,7 +79,7 @@ export class WeatherService {
 
   private openweatherUrl = 'https://api.openweathermap.org/data/3.0/onecall?lat=<lat>&lon=<lon>&exclude=minutely,alerts&units=metric&appid=<apiKey>&lang=de';
   private openweatherApiKey: string = '';
-  // private openweatherApiKey = '42de26dcb9074467d041e2d48aa12811';
+  private openweatherTimeout: number;  
   private chache: Map<string, CacheEntry> = new Map<string, CacheEntry>();
 
   /**
@@ -92,6 +92,7 @@ export class WeatherService {
     private httpClient: HttpClient) {
 
       this.openweatherApiKey = settingsSvc.getOpenWeatherSettings().apiKey;
+      this.openweatherTimeout = settingsSvc.getOpenWeatherSettings().refreshInt * 60 * 1000;
   }
 
   /**
@@ -119,7 +120,7 @@ export class WeatherService {
     let result: IWeatherModel | null = null;
     const key = this.createStorageKey(location);
     const val = this.chache.get(key);
-    return (val && val.isValid()) ? val.model : null;
+    return (val && val.isValid(this.openweatherTimeout)) ? val.model : null;
   }
 
   /**

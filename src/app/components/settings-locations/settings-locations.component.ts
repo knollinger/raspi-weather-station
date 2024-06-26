@@ -133,6 +133,10 @@ export class SettingsLocationsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onSearch(location: Location) {
+    this.setMarker(location.latitude, location.longitude, location.name);
+  }
+
   /**
    * 
    */
