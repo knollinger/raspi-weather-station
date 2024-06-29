@@ -20,9 +20,18 @@ export class SearchBarComponent implements OnInit {
   private search: Subject<string> = new Subject<string>();
   locations: Location[] = new Array<Location>(0);
 
+  showClearBtn: boolean = false;
+
+  /**
+   * 
+   * @param locSvc 
+   */
   constructor(private locSvc: LocationService) {
   }
 
+  /**
+   * 
+   */
   ngOnInit(): void {
 
     this.search.pipe(
@@ -44,7 +53,9 @@ export class SearchBarComponent implements OnInit {
     */
   public onInput(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.search.next(input.value);
+    const value = input.value;
+    this.showClearBtn = value !== '';
+    this.search.next(value);
   }
 
 

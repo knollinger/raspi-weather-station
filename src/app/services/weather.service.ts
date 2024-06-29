@@ -24,8 +24,7 @@ class CacheEntry {
   }
 
   /**
-   * Ein CacheEntry ist 15min lang gültig, erst danach muss er neu
-   * erzeugt werden.
+   * @param timeout Anzahl von ms welche ein CacheENtry maximal gültig ist
    *  
    * @returns 
    */
@@ -79,7 +78,7 @@ export class WeatherService {
 
   private openweatherUrl = 'https://api.openweathermap.org/data/3.0/onecall?lat=<lat>&lon=<lon>&exclude=minutely,alerts&units=metric&appid=<apiKey>&lang=de';
   private openweatherApiKey: string = '';
-  private openweatherTimeout: number;  
+  private openweatherTimeout: number;
   private chache: Map<string, CacheEntry> = new Map<string, CacheEntry>();
 
   /**
@@ -88,11 +87,12 @@ export class WeatherService {
    * @param backendRoutesSvc 
    */
   constructor(
-    private settingsSvc: SettingsService,
+    settingsSvc: SettingsService,
     private httpClient: HttpClient) {
 
-      this.openweatherApiKey = settingsSvc.getOpenWeatherSettings().apiKey;
-      this.openweatherTimeout = settingsSvc.getOpenWeatherSettings().refreshInt * 60 * 1000;
+    const settings = settingsSvc.getOpenWeatherSettings();
+    this.openweatherApiKey = settings.apiKey;
+    this.openweatherTimeout = settings.refreshInt * 60 * 1000;
   }
 
   /**
@@ -103,11 +103,9 @@ export class WeatherService {
   public getWeatherFor(location: Location): Observable<IWeatherModel> {
 
     const cached = this.getFromCache(location);
-    if(cached) {
-      console.log('cache hit')
+    if (cached) {
       return of(cached);
     }
-    console.log('cache miss')
     return this.getFromServer(location);
   }
 
@@ -118,7 +116,7 @@ export class WeatherService {
   private getFromCache(location: Location): IWeatherModel | null {
 
     let result: IWeatherModel | null = null;
-    const key = this.createStorageKey(location);
+    const key = this.createCacheKey(location);
     const val = this.chache.get(key);
     return (val && val.isValid(this.openweatherTimeout)) ? val.model : null;
   }
@@ -137,7 +135,7 @@ export class WeatherService {
       .replace('<apiKey>', this.openweatherApiKey);
 
     return this.httpClient.get<IWeatherModel>(url).pipe(
-      map(snapshot => {
+      map((snapshot: IWeatherModel) => {
         this.setToCache(location, snapshot);
         return snapshot;
       })
@@ -151,7 +149,7 @@ export class WeatherService {
    */
   private setToCache(location: Location, weather: IWeatherModel) {
 
-    const key = this.createStorageKey(location);
+    const key = this.createCacheKey(location);
     const entry = new CacheEntry(new Date().getTime(), weather);
     this.chache.set(key, entry);
   }
@@ -159,8 +157,8 @@ export class WeatherService {
   /**
    * 
    */
-  private createStorageKey(location: Location): string {
-    
+  private createCacheKey(location: Location): string {
+
     return `${location.latitude}-${location.longitude}`;
   }
 
