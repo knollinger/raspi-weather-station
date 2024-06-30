@@ -58,11 +58,7 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
 
         this.weatherSvc.getWeatherFor(this.location).subscribe(weather => {
           this.weathers = weather.hourly;
-
-          this.timerId = window.setInterval(() => {
-            this.drawPlots();
-          }, 10000)
-          this.drawPlots();
+          this.restartTimer();
         });
       }
     })
@@ -89,10 +85,6 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
       i++;
     });
     this.plotterSvc.plotLine(this.getTitle(), "plot", x, y);
-    this.currPlotId++;
-    if (this.currPlotId > 3) {
-      this.currPlotId = 0;
-    }
   }
 
   /**
@@ -133,5 +125,45 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
         return 'Niederschlag';
     }
     return '';
+  }
+
+  /**
+   * 
+   */
+  increase() {
+
+    this.currPlotId++;
+    if (this.currPlotId > 3) {
+      this.currPlotId = 0;
+    }
+    this.restartTimer();
+  }
+
+  /**
+   * 
+   */
+  decrease() {
+
+    this.currPlotId--;
+    if (this.currPlotId < 0) {
+      this.currPlotId = 3;
+    }
+    this.restartTimer();
+  }
+
+  /**
+   * 
+   */
+  restartTimer() {
+
+    window.clearInterval(this.timerId);
+    this.timerId = window.setInterval(() => {
+      this.drawPlots();
+      this.currPlotId++;
+      if (this.currPlotId > 3) {
+        this.currPlotId = 0;
+      }
+    }, 10000)
+    this.drawPlots();
   }
 }
