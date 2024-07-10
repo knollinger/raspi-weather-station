@@ -18,8 +18,8 @@ export interface IBaseWeather {
     wind_speed: number,
     wind_deg: number,
     wind_gust: number,
-    rain?: number,
-    snow?: number,
+    rain?: any,
+    snow?: any,
     weather: IShortWeatherDesc[]
 }
 

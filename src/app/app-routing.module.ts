@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { WeatherCurrentComponent } from './components/weather-current/weather-current.component';
-import { WeatherForecastChooserComponent } from './components/weather-forecast-chooser/weather-forecast-chooser.component';
 import { WeatherWeeklyForecastDashboardComponent } from './components/weather-weekly-forecast-dashboard/weather-weekly-forecast-dashboard.component';
 import { WeatherDailyForecastComponent } from './components/weather-daily-forecast/weather-daily-forecast.component';
 
@@ -18,10 +17,6 @@ const routes: Routes = [
   {
     path: 'weatherCurrent',
     component: WeatherCurrentComponent
-  },
-  {
-    path: 'weatherForecastChooser/:uuid',
-    component: WeatherForecastChooserComponent
   },
   {
     path: 'weeklyWeatherForecast/:uuid',

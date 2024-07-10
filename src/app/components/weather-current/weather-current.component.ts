@@ -2,10 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { Location } from '../../models/location';
 
-import { TitlebarService } from '../../services/titlebar.service';
+import { IToolbarAction, TitlebarService } from '../../services/titlebar.service';
 import { LocationService } from '../../services/location.service';
 import { WeatherService } from '../../services/weather.service';
 import { ICurrentWeather } from '../../models/weather-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-weather-current',
@@ -19,6 +20,8 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
   private timerId: number = 0;
   private currentWeather: ICurrentWeather | null = null;
   private weatherSubscr: any;
+  private showDaily: IToolbarAction;
+  private showWeekly: IToolbarAction;
 
   /**
    * 
@@ -29,13 +32,30 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
   constructor(
     private titleBarSvc: TitlebarService,
     private locSvc: LocationService,
-    private weatherSvc: WeatherService) {
+    private weatherSvc: WeatherService,
+    private router: Router) {
 
+    this.showDaily = {
+      icon: 'today',
+      text: 'Tages-Vorschau',
+      action: () => {
+        const url = `/dailyWeatherForecast/${this.locations[this.currLocIdx].uuid}`;
+        this.router.navigateByUrl(url);
+      }
+    }
+    this.showWeekly = {
+      icon: 'date_range',
+      text: 'Wochen-Vorschau',
+      action: () => {
+        const url = `/weeklyWeatherForecast/${this.locations[this.currLocIdx].uuid}`;
+        this.router.navigateByUrl(url);
+      }
+    }
   }
 
   /**
    * 
-   */
+  */
   ngOnInit(): void {
 
     this.locations = this.locSvc.getAllLocations();
@@ -43,12 +63,19 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
       this.nextLocation();
     }, 10000);
     this.nextLocation();
+
+    this.titleBarSvc.addAction(this.showDaily);
+    this.titleBarSvc.addAction(this.showWeekly);
   }
 
   /**
    * 
    */
   ngOnDestroy() {
+
+    this.titleBarSvc.removeAction(this.showDaily);
+    this.titleBarSvc.removeAction(this.showWeekly);
+
     window.clearInterval(this.timerId);
     if (this.weatherSubscr) {
       this.weatherSubscr.unsubscribe();
@@ -63,18 +90,6 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
     this.currLocIdx++;
     if (this.currLocIdx >= this.locations.length) {
       this.currLocIdx = 0;
-    }
-    this.updateLocation();
-  }
-
-  /**
-   * 
-   */
-  prevLocation() {
-
-    this.currLocIdx--;
-    if (this.currLocIdx < 0) {
-      this.currLocIdx = this.locations.length - 1;
     }
     this.updateLocation();
   }
@@ -105,15 +120,6 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
     evt.stopPropagation();
     this.currLocIdx = locIdx;
     this.updateLocation();
-  }
-
-  /**
-   * 
-   */
-  get routerLink(): string {
-
-    const uuid = this.locations[this.currLocIdx].uuid;
-    return `/weatherForecastChooser/${uuid}`;
   }
 
   /**
@@ -152,6 +158,9 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
     return this.currentWeather ? this.currentWeather.wind_speed : 0;
   }
 
+  /**
+   * 
+   */
   get windDirection(): number {
     return this.currentWeather ? this.currentWeather.wind_deg : 0;
   }
@@ -160,6 +169,19 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
    * 
    */
   get precitipation(): number {
-    return this.currentWeather ? this.currentWeather.rain || this.currentWeather.snow || 0 : 0;
+
+    let result = 0;
+    if (this.currentWeather) {
+
+      if (this.currentWeather.rain) {
+        result = this.currentWeather.rain["1h"];
+      }
+      else {
+        if (this.currentWeather.snow) {
+          result = this.currentWeather.snow["1h"];
+        }
+      }
+    }
+    return result;
   }
 }

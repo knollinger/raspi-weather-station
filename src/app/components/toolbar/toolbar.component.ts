@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
-import { debounceTime, filter } from 'rxjs';
-import { TitlebarService } from '../../services/titlebar.service';
+import { filter } from 'rxjs';
+import { IToolbarAction, TitlebarService } from '../../services/titlebar.service';
 import { Location } from '@angular/common';
+
 
 /**
  * 
@@ -49,8 +50,15 @@ export class ToolbarComponent implements OnInit {
       });
   }
 
+  /**
+   * 
+   */
   public onGoBack() {
 
     this.location.back()
+  }
+
+  get actions(): IToolbarAction[] {
+    return this.titleSvc.actions;
   }
 }

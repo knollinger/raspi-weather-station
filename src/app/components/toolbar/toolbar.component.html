@@ -4,6 +4,13 @@
 
 <div class="toolbar-hdr">{{titleSvc.title}}</div>
 
+<div>
+    <button mat-icon-button class="toolbar-btn" *ngFor="let action of actions" (click)="action.action()">
+        <mat-icon>{{action.icon}}</mat-icon>
+    </button>
+</div>
+
+
 <button mat-icon-button color="white" class="toolbar-btn" *ngIf="showBackButton" routerLink="/">
     <mat-icon>home</mat-icon>
 </button>
