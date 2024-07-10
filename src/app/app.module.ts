@@ -21,6 +21,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatRadioModule } from '@angular/material/radio';
 
 import { FormsModule } from '@angular/forms';
@@ -28,7 +29,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SettingsMainComponent } from './components/settings-main/settings-main.component';
 import { PanelComponent } from './components/panel/panel.component';
 import { WeatherForecastChooserComponent } from './components/weather-forecast-chooser/weather-forecast-chooser.component';
 import { WeatherWeeklyForecastDashboardComponent } from './components/weather-weekly-forecast-dashboard/weather-weekly-forecast-dashboard.component';
@@ -50,7 +50,6 @@ import { WeatherWindDirectionComponent } from './components/weather-wind-directi
     WeatherForecastChooserComponent,
     WeatherWeeklyForecastDashboardComponent,
     WeatherDailyForecastComponent,
-    SettingsMainComponent,
     SettingsLocationsComponent,
     SettingsOpenweatherComponent,
     MinLocationDimensionsDirective,
@@ -72,6 +71,7 @@ import { WeatherWindDirectionComponent } from './components/weather-wind-directi
     MatInputModule,
     MatFormFieldModule,
     MatAutocompleteModule,
+    MatMenuModule,
     MatRadioModule,
 
     FormsModule,

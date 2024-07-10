@@ -8,6 +8,11 @@
     <mat-icon>home</mat-icon>
 </button>
 
-<button mat-icon-button color="white" class="toolbar-btn" *ngIf="showSettingsButton" routerLink="/settings">
+<button mat-icon-button color="white" class="toolbar-btn" [matMenuTriggerFor]="settingsMenu">
     <mat-icon>settings</mat-icon>
 </button>
+
+<mat-menu #settingsMenu="matMenu">
+    <button mat-menu-item routerLink="/settings/locations">Orte bearbeiten</button>
+    <button mat-menu-item routerLink="/settings/openweather">OpenWeather-Einstellungen</button>
+</mat-menu>

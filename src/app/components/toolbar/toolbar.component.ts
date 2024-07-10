@@ -16,7 +16,6 @@ import { Location } from '@angular/common';
 export class ToolbarComponent implements OnInit {
 
   showBackButton: boolean = false;
-  showSettingsButton: boolean = true;
 
   /**
    * 
@@ -47,7 +46,6 @@ export class ToolbarComponent implements OnInit {
       .subscribe(event => {
         const url = (event as NavigationEnd).url;
         this.showBackButton = (url !== '/' && url != '/weatherCurrent');
-        this.showSettingsButton = !url.startsWith('/settings');
       });
   }
 

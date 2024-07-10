@@ -6,7 +6,6 @@ import { WeatherForecastChooserComponent } from './components/weather-forecast-c
 import { WeatherWeeklyForecastDashboardComponent } from './components/weather-weekly-forecast-dashboard/weather-weekly-forecast-dashboard.component';
 import { WeatherDailyForecastComponent } from './components/weather-daily-forecast/weather-daily-forecast.component';
 
-import { SettingsMainComponent } from './components/settings-main/settings-main.component';
 import { SettingsLocationsComponent } from './components/settings-locations/settings-locations.component';
 import { SettingsOpenweatherComponent } from './components/settings-openweather/settings-openweather.component';
 
@@ -32,10 +31,6 @@ const routes: Routes = [
     path: 'dailyWeatherForecast/:uuid',
     component: WeatherDailyForecastComponent
   },
-  {
-    path: 'settings',
-    component: SettingsMainComponent
-  },  
   {
     path: 'settings/locations',
     component: SettingsLocationsComponent
