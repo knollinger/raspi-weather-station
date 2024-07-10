@@ -1,0 +1,63 @@
+<div class="outer grid" [routerLink]="routerLink">
+
+    <div class="grid-row-0">
+        <img class="weather-image" [src]="weatherIconUrl">
+    </div>
+
+    <div class="grid-row-0">
+        <div class="grid-col-2">
+            Temperatur:
+        </div>
+        <div class="grid-col-2">
+            {{temperature | number:"1.1-1"}} °C
+        </div>
+    </div>
+
+    <div class="grid-row-0">
+        <div class="grid-col-2">
+            Niederschlag:
+        </div>
+        <div class="grid-col-2">
+            {{precitipation | number:"1.0-0"}} mm
+        </div>
+    </div>
+
+    <div class="grid-row-0">
+        <div class="grid-col-2">
+            Luftfeuchtigkeit:
+        </div>
+        <div class="grid-col-2">
+            {{humidity | number:"1.0-0"}} %
+        </div>
+    </div>
+
+    <div class="grid-row-0">
+        <div class="grid-col-2">
+            Luftdruck:
+        </div>
+        <div class="grid-col-2">
+            {{pressure | number:"1.0-0"}} hPa
+        </div>
+    </div>
+
+    <div class="grid-row-0">
+        <div class="grid-col-2">
+            Wind:
+        </div>
+        <div class="grid-col-2">
+            {{windSpeed | number:"1.1-1"}} KMH
+            <app-weather-wind-direction [direction]="windDirection"></app-weather-wind-direction>
+        </div>
+    </div>
+
+    <div class="indicator-box">
+        <fieldset class="radio-box">
+            <mat-radio-button color="primary"
+                *ngFor="let loc of locations; let idx = index" 
+                [value]="idx" 
+                [checked]="idx == currLocIdx" 
+                (click)="onLocationSelection($event, idx)">
+            </mat-radio-button>
+        </fieldset>
+    </div>
+</div>

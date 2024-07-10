@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { WeatherLocationsDashboardComponent } from './components/weather-locations-dashboard/weather-locations-dashboard.component';
+import { WeatherCurrentComponent } from './components/weather-current/weather-current.component';
 import { WeatherForecastChooserComponent } from './components/weather-forecast-chooser/weather-forecast-chooser.component';
 import { WeatherWeeklyForecastDashboardComponent } from './components/weather-weekly-forecast-dashboard/weather-weekly-forecast-dashboard.component';
 import { WeatherDailyForecastComponent } from './components/weather-daily-forecast/weather-daily-forecast.component';
@@ -13,12 +13,12 @@ import { SettingsOpenweatherComponent } from './components/settings-openweather/
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'weatherLocationsDashboard',
+    redirectTo: 'weatherCurrent',
     pathMatch: 'full'
   },
   {
-    path: 'weatherLocationsDashboard',
-    component: WeatherLocationsDashboardComponent
+    path: 'weatherCurrent',
+    component: WeatherCurrentComponent
   },
   {
     path: 'weatherForecastChooser/:uuid',

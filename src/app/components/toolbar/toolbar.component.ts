@@ -46,7 +46,7 @@ export class ToolbarComponent implements OnInit {
       filter((event) => event instanceof NavigationEnd))
       .subscribe(event => {
         const url = (event as NavigationEnd).url;
-        this.showBackButton = (url !== '/' && url != '/weatherLocationsDashboard');
+        this.showBackButton = (url !== '/' && url != '/weatherCurrent');
         this.showSettingsButton = !url.startsWith('/settings');
       });
   }

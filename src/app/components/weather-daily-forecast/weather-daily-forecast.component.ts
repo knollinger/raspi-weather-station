@@ -21,12 +21,6 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
   private timerId: number = -1;
 
   private currPlotId = 0;
-  private plots: string[] = [
-    'temp',
-    'pressure',
-    'wind_speed'
-  ];
-
 
   /**
    * 
@@ -75,7 +69,6 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
     let y: number[] = new Array<number>(0);
     let i: number = 0;
 
-    const propName = this.plots[this.currPlotId];
     this.weathers.forEach(w => {
 
       if (i < 24) {
@@ -105,6 +98,9 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
 
       case 3:
         return weather.rain || weather.snow || 0;
+
+      case 4:
+        return weather.wind_speed;
     }
     return 0;
   }
@@ -123,6 +119,9 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
 
       case 3:
         return 'Niederschlag';
+
+      case 4:
+        return 'Wind';
     }
     return '';
   }
@@ -133,7 +132,7 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
   increase() {
 
     this.currPlotId++;
-    if (this.currPlotId > 3) {
+    if (this.currPlotId > 4) {
       this.currPlotId = 0;
     }
     this.restartTimer();

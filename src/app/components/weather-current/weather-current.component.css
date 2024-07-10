@@ -1,0 +1,30 @@
+@import '../../../assets/styles/grid.css';
+
+.outer {
+    position: relative;
+    display: block;
+    height: 100%;
+    color: white;
+    font-size: 22px;
+    padding: 16px;
+}
+
+.weather-image {
+    width: 128px;
+    margin-bottom: 16px;
+}
+
+.indicator-box {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.radio-box {
+    display: inline-block;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    border: none;
+}

@@ -1,9 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+import { LOCALE_ID } from '@angular/core'
+import localeDe from '@angular/common/locales/de';
+import localeDeExtra from '@angular/common/locales/extra/de';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,6 +21,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +30,6 @@ import { AppComponent } from './app.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { SettingsMainComponent } from './components/settings-main/settings-main.component';
 import { PanelComponent } from './components/panel/panel.component';
-import { WeatherLocationsDashboardComponent } from './components/weather-locations-dashboard/weather-locations-dashboard.component';
 import { WeatherForecastChooserComponent } from './components/weather-forecast-chooser/weather-forecast-chooser.component';
 import { WeatherWeeklyForecastDashboardComponent } from './components/weather-weekly-forecast-dashboard/weather-weekly-forecast-dashboard.component';
 
@@ -32,13 +39,14 @@ import { SettingsLocationsComponent } from './components/settings-locations/sett
 import { SettingsOpenweatherComponent } from './components/settings-openweather/settings-openweather.component';
 import { MinLocationDimensionsDirective } from './directives/min-location-dimensions.directive';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { WeatherCurrentComponent } from './components/weather-current/weather-current.component';
+import { WeatherWindDirectionComponent } from './components/weather-wind-direction/weather-wind-direction.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
     PanelComponent,
-    WeatherLocationsDashboardComponent,
     WeatherForecastChooserComponent,
     WeatherWeeklyForecastDashboardComponent,
     WeatherDailyForecastComponent,
@@ -47,6 +55,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     SettingsOpenweatherComponent,
     MinLocationDimensionsDirective,
     SearchBarComponent,
+    WeatherCurrentComponent,
+    WeatherWindDirectionComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,13 +72,19 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     MatInputModule,
     MatFormFieldModule,
     MatAutocompleteModule,
+    MatRadioModule,
 
     FormsModule,
     ReactiveFormsModule,
 
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID, 
+      useValue: 'de-DE' 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
