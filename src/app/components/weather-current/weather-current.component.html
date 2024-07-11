@@ -50,12 +50,10 @@
             </div>
         </div>
 
-        <div class="radio-box">
-            <span class="dot" 
-                *ngFor="let loc of locations; let idx = index" 
-                [class.active]="idx == currLocIdx" 
-                (click)="onLocationSelection($event, idx)">
-            </span>
-        </div> 
+        <app-dot-indicator class="radio-box"
+            [count]="locations.length" 
+            [current]="currLocIdx" 
+            (change)="onLocationSelection($event)">
+        </app-dot-indicator>
     </div>
 </div>

@@ -20,7 +20,8 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
 
   private timerId: number = -1;
 
-  private currPlotId = 0;
+  nrOfPlots: number = 5;
+  currPlotId = 0;
 
   /**
    * 
@@ -150,6 +151,15 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
     this.restartTimer();
   }
 
+  /** 
+   * 
+   */
+  onPlotSelection(id: number) {
+
+    this.currPlotId = id;
+    this.restartTimer();
+  }
+
   /**
    * 
    */
@@ -159,10 +169,10 @@ export class WeatherDailyForecastComponent implements OnInit, OnDestroy {
     this.timerId = window.setInterval(() => {
       this.drawPlots();
       this.currPlotId++;
-      if (this.currPlotId > 3) {
+      if (this.currPlotId > 4) {
         this.currPlotId = 0;
       }
-    }, 10000)
+    }, 5000)
     this.drawPlots();
   }
 }

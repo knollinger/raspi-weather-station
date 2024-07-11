@@ -116,8 +116,9 @@ export class WeatherCurrentComponent implements OnInit, OnDestroy {
    * @param evt 
    * @param locIdx 
    */
-  onLocationSelection(evt: Event, locIdx: number) {
-    evt.stopPropagation();
+  onLocationSelection(locIdx: number) {
+  // onLocationSelection(evt: Event, locIdx: number) {
+  //     evt.stopPropagation();
     this.currLocIdx = locIdx;
     this.updateLocation();
   }

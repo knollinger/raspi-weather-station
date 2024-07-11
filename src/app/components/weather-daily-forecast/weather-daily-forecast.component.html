@@ -1,7 +1,2 @@
 <div id="plot"></div>
-<button class="decrease" mat-fab color="white" (click)="decrease()">
-    <mat-icon>chevron_left</mat-icon>
-</button>
-<button class="increase" mat-fab color="white" (click)="increase()">
-    <mat-icon>chevron_right</mat-icon>
-</button>
+<app-dot-indicator [count]="nrOfPlots" [current]="currPlotId" (change)="onPlotSelection($event)"></app-dot-indicator>

@@ -39,6 +39,7 @@ import { MinLocationDimensionsDirective } from './directives/min-location-dimens
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { WeatherCurrentComponent } from './components/weather-current/weather-current.component';
 import { WeatherWindDirectionComponent } from './components/weather-wind-direction/weather-wind-direction.component';
+import { DotIndicatorComponent } from './components/dot-indicator/dot-indicator.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { WeatherWindDirectionComponent } from './components/weather-wind-directi
     SearchBarComponent,
     WeatherCurrentComponent,
     WeatherWindDirectionComponent,
+    DotIndicatorComponent,
   ],
   imports: [
     BrowserModule,

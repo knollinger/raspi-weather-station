@@ -21,7 +21,7 @@ export class PlotterService {
       title: title,
       autosize: false,
       width: 770,
-      height: 400,
+      height: 300,
       margin: {
         l: 50,
         r: 50,
